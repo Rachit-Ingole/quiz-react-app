@@ -55,7 +55,7 @@ export default function QuizPage(props) {
             return op
         })
 
-        console.log(questionArray)
+    
 
     },questionArray)
 
@@ -86,7 +86,6 @@ export default function QuizPage(props) {
         setQuestionArray([])
     }
     function handleSelectedOptions(event,questionIndex){
-        console.log(selectedOptions)
         if(submitted){return}
         let options = Array.from(selectedOptions);
         options[questionIndex] = event.target.innerText;
@@ -143,8 +142,8 @@ export default function QuizPage(props) {
         </div>
         <div className='info-bar'>
             {submitted && <h3>You scored {calculateScore()}/{answers.length} in the quiz</h3>}
-            <button className='submitButton' onClick={handleSubmit}>{submitted ? "Play Again" : "Check Answers"}</button>
             <button className='submitButton homeButton' onClick={handleGoHome}>Go to Home</button>
+            <button className='submitButton' onClick={handleSubmit}>{submitted ? "Play Again" : "Check Answers"}</button>
         </div>
         
     </div>
