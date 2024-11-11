@@ -131,7 +131,7 @@ export default function QuizPage(props) {
                     <h2>{decodeHTMLEntities(question)}</h2>
                     <div className='optionContainer'>
                         {options.map((option,optionIndex)=>{
-                            return (<button onClick={(event)=>handleSelectedOptions(event,questionIndex)} key={optionIndex} questionindex={questionIndex} className={"option " + (selectedOptions[questionIndex] === option && !submitted ? "selectedOption ":"" + (submitted ? checkStatus(questionIndex,option) : "notSub "))} >{decodeHTMLEntities(option)}</button>)
+                            return (<button onClick={(event)=>handleSelectedOptions(event,questionIndex)} key={optionIndex} questionindex={questionIndex} className={"option " + (selectedOptions[questionIndex].trim() == option.trim() && !submitted ? "selectedOption ":"" + (submitted ? checkStatus(questionIndex,option) : "notSub "))} >{decodeHTMLEntities(option)}</button>)
                         })}
                     </div>
                 <hr/>    
