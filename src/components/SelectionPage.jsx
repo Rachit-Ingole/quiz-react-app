@@ -24,7 +24,7 @@ export default function SelectionPage(props) {
             return
         }
         event.preventDefault()
-        let categoryData = {"genk":9,"books":10,"film":11,"music":12,"videogame":15,"boardgame":16,"comp":18,"math":19,"sport":21,"geo":22,"his":23,"politics":24,"art":25,"vehicle":28,"anime":31,"cartoon":32}
+        let categoryData = {"genk":9,"books":10,"film":11,"music":12,"videogame":15,"boardgame":16,"comp":18,"math":19,"sport":21,"geo":22,"hist":23,"politics":24,"art":25,"vehicle":28,"anime":31,"cartoon":32}
         
         const url = "https://opentdb.com/api.php?" + `amount=${formData.quantity}` + (formData.category == "any" ? "" : `&category=${categoryData[formData.category]}`) + (formData.difficulty == "any" ? "" : `&difficulty=${formData.difficulty}`) + (formData.type =="any" ? "" : `&type=${formData.type}`) 
 
