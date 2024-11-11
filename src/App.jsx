@@ -45,7 +45,7 @@ function App() {
     
     <>
       {selectPage || questionArray.length != 0 ? 
-        questionArray != 0 ?  <QuizPage questionArray={questionArray} setQuestionArray={setQuestionArray} handleStart={handleStart}/>: <SelectionPage handleStart={handleStart}/> 
+        questionArray != 0 ?  <QuizPage questionArray={questionArray} setQuestionArray={setQuestionArray} handleStart={handleStart} setSelectPage={setSelectPage}/>: <SelectionPage handleStart={handleStart}/> 
         : <HomePage handleGoToSelection = {handleGoToSelection}/> }
     </>
   )

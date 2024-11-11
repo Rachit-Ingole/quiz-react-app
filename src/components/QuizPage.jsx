@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default function QuizPage(props) {
-    const {setQuestionArray,questionArray,handleStart} = props;
+    const {setQuestionArray,questionArray,handleStart,setSelectPage} = props;
     const [selectedOptions , setSelectedOptions] = useState(()=>{
         if (localStorage.getItem("data-QA&SO")){
             return JSON.parse(localStorage.getItem("data-QA&SO")).selectedOptions
@@ -83,6 +83,7 @@ export default function QuizPage(props) {
     }
     function handleGoHome(){
         localStorage.setItem("data-QA&SO", JSON.stringify({"questionArray":[],"selectedOptions":[-1,-1,-1,-1,-1],"submitted":false}))
+        setSelectPage(false)
         setQuestionArray([])
     }
     function handleSelectedOptions(event,questionIndex){
@@ -131,7 +132,7 @@ export default function QuizPage(props) {
                     <h2>{decodeHTMLEntities(question)}</h2>
                     <div className='optionContainer'>
                         {options.map((option,optionIndex)=>{
-                            return (<button onClick={(event)=>handleSelectedOptions(event,questionIndex)} key={optionIndex} questionindex={questionIndex} className={"option " + (selectedOptions[questionIndex].trim() == option.trim() && !submitted ? "selectedOption ":"" + (submitted ? checkStatus(questionIndex,option) : "notSub "))} >{decodeHTMLEntities(option)}</button>)
+                            return (<button onClick={(event)=>handleSelectedOptions(event,questionIndex)} key={optionIndex} questionindex={questionIndex} className={"option " + (decodeHTMLEntities(`${selectedOptions[questionIndex]}`.trim()) == decodeHTMLEntities(`${option}`.trim()) && !submitted ? "selectedOption ":"" + (submitted ? checkStatus(questionIndex,option) : "notSub "))} >{decodeHTMLEntities(option)}</button>)
                         })}
                     </div>
                 <hr/>    
