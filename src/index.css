@@ -2,7 +2,7 @@
   background-color: #F5F7FB;  
   background-image: url("assets/blueBlob.svg"), url("assets/yellowBlob.svg");
   background-repeat: no-repeat;
-  background-size: calc(100vw/6);
+  background-size: calc(max(100vw,100vh)/6);
   background-position-x: left,right;
   background-position-y: bottom,top;
   background-attachment: fixed;
@@ -180,4 +180,6 @@
   font-weight: 350;
   font-size: 1em;
   cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

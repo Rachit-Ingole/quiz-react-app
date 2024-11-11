@@ -33,7 +33,7 @@ function App() {
   return (
     
     <>
-      {questionArray.length != 0 ? <QuizPage questionArray={questionArray} handleStart={handleStart}/> : <HomePage handleStart={handleStart}/> }
+      {questionArray.length != 0 ? <QuizPage questionArray={questionArray} setQuestionArray={setQuestionArray} handleStart={handleStart}/> : <HomePage handleStart={handleStart}/> }
     </>
   )
 }

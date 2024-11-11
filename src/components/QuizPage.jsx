@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default function QuizPage(props) {
-    const {questionArray,handleStart} = props;
+    const {setQuestionArray,questionArray,handleStart} = props;
     const [selectedOptions , setSelectedOptions] = useState(()=>{
         if (localStorage.getItem("data-QA&SO")){
             return JSON.parse(localStorage.getItem("data-QA&SO")).selectedOptions
@@ -81,7 +81,10 @@ export default function QuizPage(props) {
         textarea.innerHTML = text; 
         return textarea.value;
     }
-    
+    function handleGoHome(){
+        localStorage.setItem("data-QA&SO", JSON.stringify({"questionArray":[],"selectedOptions":[-1,-1,-1,-1,-1],"submitted":false}))
+        setQuestionArray([])
+    }
     function handleSelectedOptions(event,questionIndex){
         console.log(selectedOptions)
         if(submitted){return}
@@ -141,6 +144,7 @@ export default function QuizPage(props) {
         <div className='info-bar'>
             {submitted && <h3>You scored {calculateScore()}/{answers.length} in the quiz</h3>}
             <button className='submitButton' onClick={handleSubmit}>{submitted ? "Play Again" : "Check Answers"}</button>
+            <button className='submitButton homeButton' onClick={handleGoHome}>Go to Home</button>
         </div>
         
     </div>
