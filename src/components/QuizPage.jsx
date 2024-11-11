@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react'
 
 export default function QuizPage(props) {
     const {questionArray,handleStart} = props;
-    const [selectedOptions , setSelectedOptions] = useState([-1,-1,-1,-1,-1])
-    const [submitted,setSubmitted] = useState(false)
-    const [score,setScore] = useState(0)
+    const [selectedOptions , setSelectedOptions] = useState(()=>{
+        if (localStorage.getItem("data-QA&SO")){
+            return JSON.parse(localStorage.getItem("data-QA&SO")).selectedOptions
+        }
+        return [-1,-1,-1,-1,-1]})
+    const [submitted,setSubmitted] = useState(()=>{
+        if (localStorage.getItem("data-QA&SO")){
+            return JSON.parse(localStorage.getItem("data-QA&SO")).submitted
+        }
+        return false})
     const [answers,setAnswers] = useState(()=>{
         let op = []
         questionArray.map((questionValue,questionIndex)=>{
@@ -13,8 +20,6 @@ export default function QuizPage(props) {
         })
         return op
     })
-    
-    
     const [myDic,setMyDic] = useState(()=>{
         var my_dic = {};
         questionArray.map((questionValue,questionIndex)=>{
@@ -29,15 +34,13 @@ export default function QuizPage(props) {
 
 
     useEffect(()=>{
-        setSelectedOptions([-1,-1,-1,-1,-1])
-        setSubmitted(false)
-        setScore(0)
         setMyDic(()=>{
             var my_dic = {};
             questionArray.map((questionValue,questionIndex)=>{
                 let op = [...questionValue.incorrect_answers]
                 let answer = questionValue.correct_answer
                 op = op.toSpliced(Math.floor(Math.random() * 4),0,answer)
+                op = shuffleArray(op)
                 my_dic[questionValue.question] = op
                 
             })
@@ -56,6 +59,23 @@ export default function QuizPage(props) {
 
     },questionArray)
 
+    
+    useEffect(()=>{
+        localStorage.setItem("data-QA&SO", JSON.stringify({"questionArray":questionArray,"selectedOptions":selectedOptions,"submitted":submitted}))
+    },[questionArray,selectedOptions,submitted])
+
+
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i >= 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array
+    }
+
+
     function decodeHTMLEntities(text) {
         const textarea = document.createElement('textarea'); 
         textarea.innerHTML = text; 
@@ -63,6 +83,7 @@ export default function QuizPage(props) {
     }
     
     function handleSelectedOptions(event,questionIndex){
+        console.log(selectedOptions)
         if(submitted){return}
         let options = Array.from(selectedOptions);
         options[questionIndex] = event.target.innerText;
@@ -72,17 +93,21 @@ export default function QuizPage(props) {
     function handleSubmit(){
         if(!submitted){
             setSubmitted(true)
-            let s = 0
+        }else{
+            handleStart()
+            setSubmitted(false)
+            setSelectedOptions([-1,-1,-1,-1,-1])
+        }
+    }
+
+    function calculateScore(){
+        let s = 0
             for(let i=0;i<answers.length;i++){
                 if(answers[i] == selectedOptions[i]){
                     s+=1
                 }
             }
-            setScore(s)
-        }else{
-            handleStart()
-
-        }
+        return s
     }
 
     function checkStatus(index,option){
@@ -114,7 +139,7 @@ export default function QuizPage(props) {
             })}
         </div>
         <div className='info-bar'>
-            {submitted && <h3>You scored {score}/{answers.length} in the quiz</h3>}
+            {submitted && <h3>You scored {calculateScore()}/{answers.length} in the quiz</h3>}
             <button className='submitButton' onClick={handleSubmit}>{submitted ? "Play Again" : "Check Answers"}</button>
         </div>
         

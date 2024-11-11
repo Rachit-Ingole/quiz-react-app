@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import HomePage from './components/HomePage'
 import QuizPage from './components/QuizPage'
 
@@ -13,8 +13,7 @@ function App() {
         const res = await fetch(url);
         const apiData = await res.json();
         if(apiData.results == undefined){
-          console.log("API ERROR")
-          return
+          throw "error";
         }
         setQuestionArray(apiData.results);
         console.log(apiData.results)
@@ -25,6 +24,11 @@ function App() {
     getQuestions();
   }
 
+  useEffect(()=>{
+    if (localStorage.getItem("data-QA&SO")){
+      setQuestionArray(JSON.parse(localStorage.getItem("data-QA&SO")).questionArray)
+    }
+  },[])
 
   return (
     
