@@ -8,7 +8,6 @@ function App() {
   const [selectPage , setSelectPage] = useState(false)
 
   function handleStart(url){
-    console.log("here")
     if(!url){
       if(localStorage.getItem("selectionData")){
         let formData = JSON.parse(localStorage.getItem("selectionData"))
@@ -20,15 +19,13 @@ function App() {
       }
     }
     
-    async function getQuestions() {
-        console.log(url)      
+    async function getQuestions() {     
         const res = await fetch(url);
         const apiData = await res.json();
         if(apiData.results == undefined){
           throw "error";
         }
         setQuestionArray(apiData.results);
-        console.log(apiData.results)
       
     }
     getQuestions();

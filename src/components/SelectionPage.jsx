@@ -79,7 +79,7 @@ export default function SelectionPage(props) {
         </select>
         </div>
         
-        <button onClick={handleFormSubmit}>Submit</button>
+        <button onClick={handleFormSubmit}>Start Quiz</button>
         </form>
     </div>
   )
