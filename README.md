@@ -1,4 +1,4 @@
-#HOSTED LINK: (Click Here)[https://dosomequizzes.netlify.app/]
+#HOSTED LINK: [Click Here](https://dosomequizzes.netlify.app/)
 
 
 #QUIZ APP with REACT+VITE
